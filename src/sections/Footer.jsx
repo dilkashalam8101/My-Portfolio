@@ -55,7 +55,7 @@ const glowVariants = {
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-black">
+    <footer className="relative overflow-hidden bg-black w-full">
       {/* --- Background neon gradient effects --- */}
       {/* Blue glow overlay (top-right side) */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_60%_at_70%_35%,rgba(13,88,204,0.35),transparent_70%)]" />
@@ -67,21 +67,16 @@ const Footer = () => {
         initial={{ opacity: 0, y: 30 }} // Start faded & lowered
         whileInView={{ opacity: 1, y: 0 }} // Animate when scrolled into view
         transition={{ duration: 0.8 }}
-        className="relative z-10 px-4 sm:px-6 md:px-8 lg:px-10 py-16 md:py-20 flex flex-col items-center text-center space-y-6"
+        className="relative z-10 px-6 sm:px-10 py-16 md:py-20 flex flex-col items-center text-center space-y-8"
       >
         {/* --- Personal Name / Branding --- */}
-        {/* Change text to your name or brand */}
-        <div className="w-full">
+        <div className="w-full overflow-hidden flex justify-center">
           <h1
-            className="font-bangers font-semibold leading-none text-white text-center select-none"
+            className="font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#0D58CC] via-cyan-300 to-emerald-400 select-none text-center"
             style={{
-              fontSize: "clamp(3rem, 5vw, 14rem)", // Responsive scaling
-              letterSpacing: "0.02em",
-              lineHeight: 0.9,
-              paddingLeft: "3vw",
-              paddingRight: "3vw",
-              whiteSpace: "nowrap",
-              textShadow: "0 2px 18px rgba(0,0,0,0.45)",
+              fontSize: "clamp(2.5rem, 8vw, 6rem)", // Safe responsive text container scaling
+              lineHeight: 1.1,
+              textShadow: "0 2px 15px rgba(0,0,0,0.5)",
             }}
           >
             Dilkash Alam
@@ -89,44 +84,40 @@ const Footer = () => {
         </div>
 
         {/* --- Accent underline --- */}
-        {/* Decorative gradient line under name */}
         <div className="h-[3px] w-24 md:w-32 rounded-full bg-gradient-to-r from-[#0D58CC] via-cyan-300 to-emerald-400" />
 
         {/* --- Social Media Links --- */}
-        {/* Icons mapped dynamically from `socials` array */}
-        <div className="flex gap-5 text-2xl md:text-3xl">
+        <div className="flex gap-6 text-2xl md:text-3xl">
           {socials.map(({ Icon, label, href }) => (
             <motion.a
               key={label}
               href={href}
-              aria-label={label} // Accessible label
+              aria-label={label}
               target="_blank"
               rel="noopener noreferrer"
               variants={glowVariants}
               initial="initial"
               whileHover="hover"
               whileTap="tap"
-              className="text-gray-300 transition-colors duration-200"
+              className="text-gray-300 hover:text-white transition-colors duration-200"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <Icon /> {/* Icon for each social */}
+              <Icon />
             </motion.a>
           ))}
         </div>
 
         {/* --- Personal Quote / Tagline --- */}
-        {/* Replace this with your favorite quote or brand message */}
-        <p className="text-gray-300 italic max-w-xl">
+        <p className="text-gray-400 italic max-w-xl text-sm sm:text-base px-4">
           “Success is when preparation meets opportunity.”
         </p>
 
         {/* --- Copyright / Trademark --- */}
-        {/* Auto-updates year dynamically */}
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-500 tracking-wide">
           © {new Date().getFullYear()} Dilkash Alam. All rights reserved.
         </p>
       </motion.div>

@@ -1,8 +1,5 @@
 import React from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
-// motion: for animating elements
-// useScroll: to track scroll position
-// AnimatePresence: to animate components when mounting/unmounting
 
 // Importing project images (desktop & mobile versions)
 import img1 from "../assets/img1.JPG";
@@ -13,27 +10,23 @@ import photo2 from "../assets/photo2.PNG";
 import photo3 from "../assets/photo3.png";
 
 const MH3 = motion.h3;
-// Shortcut for <motion.h3> for easier typing
 
 // 🔹 Custom Hook: Detects if screen size matches "mobile"
 const useIsMobile = (query = "(max-width: 639px)") => {
   const [isMobile, setIsMobile] = React.useState(
-    typeof window !== "undefined" && window.matchMedia(query).matches,
-    // Checks if the screen width is <= 639px (mobile breakpoint)
+    () => typeof window !== "undefined" && window.matchMedia(query).matches,
   );
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
-    const mql = window.matchMedia(query); // Media query list
-    const handler = (e) => setIsMobile(e.matches); // Update state when query changes
+    const mql = window.matchMedia(query);
+    const handler = (e) => setIsMobile(e.matches);
+    
     mql.addEventListener?.("change", handler) || mql.addListener(handler);
-    // Add correct event listener (modern OR fallback)
-
-    setIsMobile(mql.matches); // Initialize with current screen size
+    setIsMobile(mql.matches);
+    
     return () =>
-      mql.removeEventListener?.("change", handler) ||
-      mql.removeListener(handler);
-    // Cleanup event listener
+      mql.removeEventListener?.("change", handler) || mql.removeListener(handler);
   }, [query]);
 
   return isMobile;
@@ -41,16 +34,15 @@ const useIsMobile = (query = "(max-width: 639px)") => {
 
 export default function Projects() {
   const isMobile = useIsMobile();
-  // Detect if the user is on a mobile screen
 
-  // 🔹 List of project objects (dynamic images based on screen size)
+  // 🔹 List of project objects
   const projects = React.useMemo(
     () => [
       {
         title: "nk studio",
         link: "https://www.nk.studio/",
         bgColor: "#0d4d3d",
-        image: isMobile ? photo1 : img1, // Mobile vs desktop image
+        image: isMobile ? photo1 : img1,
       },
       {
         title: "Gamily",
@@ -66,37 +58,32 @@ export default function Projects() {
       },
     ],
     [isMobile],
-    // Memoize to prevent recalculating unless screen size changes
   );
 
   const sceneRef = React.useRef(null);
-  // Reference to the whole projects section (used for scroll tracking)
 
   const { scrollYProgress } = useScroll({
     target: sceneRef,
     offset: ["start start", "end end"],
-    // Scroll progress is 0 when section top hits viewport top and 1 at the end
   });
 
-  const thresholds = projects.map((_, i) => (i + 1) / projects.length);
-  // Array of thresholds to switch between projects as user scrolls
+  // FIXED 2: thresholds array wrapped in useMemo to prevent scroll re-subscription loops
+  const thresholds = React.useMemo(
+    () => projects.map((_, i) => (i + 1) / projects.length),
+    [projects.length]
+  );
+  
   const [activeIndex, setActiveIndex] = React.useState(0);
-  // Keeps track of which project is currently active
 
-  // 🔹 Update activeIndex as user scrolls
   React.useEffect(() => {
     const unsubscribe = scrollYProgress.onChange((v) => {
       const idx = thresholds.findIndex((t) => v <= t);
-      // Find the first threshold that is greater than or equal to scroll progress
       setActiveIndex(idx === -1 ? thresholds.length - 1 : idx);
-      // If not found, show the last project
     });
     return () => unsubscribe();
-    // Cleanup scroll listener
   }, [scrollYProgress, thresholds]);
 
-  const activeProject = projects[activeIndex];
-  // Currently displayed project
+  const activeProject = projects[activeIndex] || projects[0];
 
   return (
     <section
@@ -105,84 +92,78 @@ export default function Projects() {
       className="relative text-white"
       style={{
         height: `${100 * projects.length}vh`,
-        // Section height = 100vh per project (makes scroll-based transitions work)
         backgroundColor: activeProject.bgColor,
-        // Background changes color based on active project
         transition: "background-color 400ms ease",
       }}
     >
       {/* Sticky container keeps content fixed while scrolling */}
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
         {/* Section Title */}
-        <h2
-          className={`text-3xl font-semibold z-10 text-center ${isMobile ? "mt-4" : "mt-8"}`}
-        >
+        <h2 className={`text-3xl font-semibold z-10 text-center ${isMobile ? "mt-4" : "mt-8"}`}>
           My Work
         </h2>
 
         {/* Main Project Display Area */}
-        <div
-          className={`relative w-full flex-1 flex items-center justify-center ${isMobile ? "-mt-4" : ""}`}
-        >
+        <div className={`relative w-full flex-1 flex items-center justify-center ${isMobile ? "-mt-4" : ""}`}>
+          
+          {/* FIXED 1: Single global AnimatePresence wrapper for clean exit animations */}
+          <div className="absolute inset-0 pointer-events-none z-30 flex items-center justify-center">
+            <div className="relative w-[85%] max-w-1200px h-full">
+              <AnimatePresence mode="wait">
+                <MH3
+                  key={activeProject.title}
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 30 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className={`absolute font-extrabold tracking-tight text-white/95 text-[clamp(2.2rem,6vw,5rem)] italic ${
+                    isMobile 
+                      ? "top-[12%] left-0 right-0 text-center" 
+                      : "top-[14%] left-0 lg:left-[-2%] text-left"
+                  }`}
+                  style={{ textShadow: "0 4px 12px rgba(0,0,0,0.5)" }}
+                >
+                  {activeProject.title}
+                </MH3>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Project Images Mapping */}
           {projects.map((project, idx) => (
             <div
               key={project.title}
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
-                activeIndex === idx
-                  ? "opacity-100 z-20"
-                  : "opacity-0 z-0 sm:z-10"
+                activeIndex === idx ? "opacity-100 z-20 scale-100" : "opacity-0 z-0 scale-95 pointer-events-none"
               }`}
               style={{ width: "85%", maxWidth: "1200px" }}
             >
-              {/* Animate project title when switching */}
-              <AnimatePresence mode="wait">
-                {activeIndex === idx && (
-                  <MH3
-                    key={project.title}
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 30 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className={`block text-center text-[clamp(2rem,6vw,5rem)] text-white/95 sm:absolute sm:-top-21 sm:left-[35%] lg:left-[-5%] sm:mb-0 font-bangers italic font-semibold ${
-                      isMobile ? "-mt-25" : ""
-                    }`}
-                    style={{
-                      zIndex: 5,
-                      textAlign: isMobile ? "center" : "left",
-                    }}
-                  >
-                    {project.title}
-                  </MH3>
-                )}
-              </AnimatePresence>
-
               {/* Project Image Wrapper */}
               <div
                 className={`relative w-full overflow-hidden bg-black/20 shadow-2xl md:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] ${
                   isMobile ? "mb-6 rounded-lg" : "mb-10 sm:mb-12 rounded-xl"
-                } h-[62vh] sm:h-[66vh]`}
-                style={{ zIndex: 10, transition: "box-shadow 250ms ease" }}
+                } h-[58vh] sm:h-[64vh]`}
+                style={{ zIndex: 10 }}
               >
                 {/* Project Image */}
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover drop-shadow-xl md:drop-shadow-2xl"
+                  className="w-full h-full object-cover"
                   style={{
                     position: "relative",
                     zIndex: 10,
                     filter: "drop-shadow(0 16px 40px rgba(0,0,0,0.65))",
-                    transition: "filter 200ms ease",
                   }}
                   loading="lazy"
                 />
-                {/* Subtle gradient overlay for better readability */}
+                {/* Gradient overlay */}
                 <div
                   className="pointer-events-none absolute inset-0"
                   style={{
                     zIndex: 11,
                     background:
-                      "linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 40%)",
+                      "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%)",
                   }}
                 />
               </div>
@@ -191,12 +172,12 @@ export default function Projects() {
         </div>
 
         {/* View Project Button */}
-        <div className={`absolute ${isMobile ? "bottom-20" : "bottom-10"}`}>
+        <div className={`absolute ${isMobile ? "bottom-20" : "bottom-10"} z-40`}>
           <a
             href={activeProject?.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 font-semibold rounded-lg bg-white text-black hover:bg-gray-200 transition-all"
+            className="inline-block px-6 py-3 font-semibold rounded-lg bg-white text-black hover:bg-gray-200 transition-all shadow-lg"
             aria-label={`View ${activeProject?.title}`}
           >
             View Project

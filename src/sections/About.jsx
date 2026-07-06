@@ -11,7 +11,7 @@ export default function About() {
       {/* Layered neon background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-10 -left-10 w-[360px] h-[360px] rounded-full bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1CD8D2] opacity-20 blur-[120px] animate-pulse" />
-        <div className="absolute bottom-0 right-10 w-[420px] h-[420px] rounded-full bg-gradient-to-r from-[#1CD8D2] via-[#00bf8f] to-[#302b63] opacity-15 blur-[140px] animate-pulse delay-300" />
+        <div className="absolute bottom-0 right-10 w-[420px] h-[420px] rounded-full bg-gradient-to-r from-[#1CD8D2]/20 via-[#00bf8f] to-[#302b63] opacity-15 blur-[140px] animate-pulse delay-300" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-20 w-[220px] h-[220px] rounded-full bg-gradient-to-r from-[#00bf8f] to-[#1CD8D2] opacity-10 blur-[100px]" />
       </div>
 
@@ -27,16 +27,16 @@ export default function About() {
         >
           {/* Avatar / Card */}
           <motion.div
-            className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-[#1CD8D2]/20 to-[#302b63]/20 border border-[#1CD8D2]/25"
+            className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-[#1CD8D2]/20 to-[#302b63]/20 border border-[#1CD8D2]/25 flex items-center justify-center"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            aria-hidden="true"
           >
-            {/* Replace with your actual avatar image */}
-
-            <div className="absolute inset-0 " />
-
-            <img src={p} alt="test" />
+            {/* Image is now perfectly styled to fit the container */}
+            <img 
+              src={p} 
+              alt="Dilkash Alam" 
+              className="w-full h-full object-cover object-center"
+            />
           </motion.div>
 
           {/* Name + Role + Bio + CTAs */}
@@ -99,7 +99,7 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Body copy only — removed skills chip grid */}
+        {/* Body copy only */}
         <div className="grid md:grid-cols-1">
           <motion.div
             className="text-center md:text-left"

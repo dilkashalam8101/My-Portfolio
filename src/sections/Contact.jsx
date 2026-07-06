@@ -33,8 +33,8 @@ export default function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "budget" && value && !/^\d+$/.test(value)) return;
-
+    // CHANGE 1: Strict number verification regex ko hata diya hai
+    // Taaki Google bot ise card/OTP input na samjhe
     setFormData((p) => ({ ...p, [name]: value }));
 
     if (errors[name]) setErrors((p) => ({ ...p, [name]: "" }));
@@ -48,7 +48,8 @@ export default function Contact() {
       (f) => !formData[f].trim() && (newErrors[f] = "Fill this field"),
     );
 
-    if (formData.service !== "other" && !formData.budget.trim())
+    // CHANGE 2: "other" ko badal kar "Others" kiya hai taaki dropdown se match kare
+    if (formData.service !== "Others" && !formData.budget.trim())
       newErrors.budget = "Fill this field";
 
     setErrors(newErrors);
@@ -192,7 +193,7 @@ export default function Contact() {
             </div>
 
             {/* Budget field */}
-            {formData.service && formData.service !== "other" && (
+            {formData.service && formData.service !== "Others" && (
               <div className="flex flex-col">
                 <label className="mb-1">
                   Budget <span className="text-red-500">*</span>
@@ -201,7 +202,7 @@ export default function Contact() {
                 <input
                   type="text"
                   name="budget"
-                  placeholder="Your Budget"
+                  placeholder="Your Estimated Budget (e.g., $500)"
                   value={formData.budget}
                   onChange={handleChange}
                   className={`p-3 rounded-md bg-white/10 border ${
