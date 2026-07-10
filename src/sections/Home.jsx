@@ -48,10 +48,10 @@ const glowVariants = {
 const Home = React.forwardRef((props, ref) => {
   const roles = useMemo(
     () => [
-      "Full stack Developer",
-      "Mern Stack Developer",
-      "Backend Developer",
+      "Full Stack MERN Developer",
+      "React.js Developer",
       "Node.js Developer",
+      "Open to Work | Fresher",
     ],
     [],
   );
@@ -123,7 +123,7 @@ const Home = React.forwardRef((props, ref) => {
           <div className="w-full lg:pr-24 mx-auto max-w-[48rem]">
             {/* typing text */}
             <motion.div
-              className="mb-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-wide min-h-[1.6em]"
+              className="mt-10 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-wide min-h-[1.6em]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -152,14 +152,16 @@ const Home = React.forwardRef((props, ref) => {
 
             {/* description */}
             <motion.p
-              className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0"
+              className="mt-4 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              I turn complex ideas into seamless, fresher-impact web experiences
-              — building modern, scalable, and lightning-fast applications that
-              make a difference.
+              I'm a passionate Full Stack MERN Developer and a fresher, eager to
+              build modern, responsive, and scalable web applications using
+              React, Node.js, Express.js, MongoDB, JavaScript, and Tailwind CSS.
+              I enjoy learning new technologies, solving real-world problems,
+              and creating clean, user-friendly digital experiences.
             </motion.p>
 
             {/* buttons */}
@@ -171,7 +173,7 @@ const Home = React.forwardRef((props, ref) => {
             >
               <a
                 href="#projects"
-                className="px-6 py-3 rounded-full text-lg font-medium text-white 
+                className="px-8 py-3 rounded-full text-lg font-medium text-white 
                 bg-gradient-to-r from-[#1CD8D2] via-[#00bf8f] to-[#302b63]
                 shadow-lg hover:scale-105 transition-all"
               >
@@ -183,6 +185,15 @@ const Home = React.forwardRef((props, ref) => {
                 className="px-6 py-3 rounded-full text-lg font-medium text-black bg-white hover:bg-gray-200 shadow-lg hover:scale-105 transition-all"
               >
                 My Resume
+              </a>
+              <a
+                href="/My-Portfolio/certificate.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-full text-lg font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500
+                shadow-lg hover:scale-105 transition-all"
+              >
+                View Certificate
               </a>
             </motion.div>
 

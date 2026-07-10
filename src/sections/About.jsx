@@ -14,7 +14,6 @@ export default function About() {
         <div className="absolute bottom-0 right-10 w-[420px] h-[420px] rounded-full bg-gradient-to-r from-[#1CD8D2]/20 via-[#00bf8f] to-[#302b63] opacity-15 blur-[140px] animate-pulse delay-300" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-20 w-[220px] h-[220px] rounded-full bg-gradient-to-r from-[#00bf8f] to-[#1CD8D2] opacity-10 blur-[100px]" />
       </div>
-
       {/* Content container */}
       <div className="relative z-10 max-w-6xl w-full mx-auto px-6 md:px-10 lg:px-12 py-20 flex flex-col gap-12">
         {/* Profile header */}
@@ -45,23 +44,19 @@ export default function About() {
               Dilkash Alam
             </h2>
             <p className="mt-2 text-lg sm:text-xl text-white/90 font-semibold">
-              Full Stack Developer
+              Full Stack MERN Developer | Fresher
             </p>
 
             <p className="mt-4 text-gray-300 leading-relaxed text-base sm:text-lg max-w-2xl md:max-w-3xl">
-              I build scalable, modern applications with a strong focus on clean
-              architecture, delightful UX, and performance. My toolkit spans
-              Java, React, Next.js, TypeScript, Tailwind CSS, and
-              FastAPI—bringing ideas to life from concept to production with
-              robust APIs and smooth interfaces.
+            I'm a passionate Full Stack MERN Developer with expertise in building modern, scalable, and responsive web applications. I specialize in React.js, Node.js, Express.js, MongoDB, JavaScript, and Tailwind CSS. As a fresher, I enjoy solving real-world problems through clean code, optimized performance, and user-friendly interfaces.
             </p>
 
             {/* Quick stats */}
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-xl">
               {[
-                { label: "Experience", value: "2+ months" },
-                { label: "Specialty", value: "Full Stack" },
-                { label: "Focus", value: "Performance & UX" },
+                { label: "Status", value: "Fresher" },
+                { label: "Specialization", value: "MERN Stack" },
+                { label: "Projects", value: "6+" },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -99,7 +94,7 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Body copy only */}
+        {/* Body copy */}
         <div className="grid md:grid-cols-1">
           <motion.div
             className="text-center md:text-left"
@@ -111,18 +106,57 @@ export default function About() {
             <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
               About Me
             </h3>
+
             <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
-              I’m a Full Stack Developer, MERN Stack Developer, and Web
-              Developer — passionate about building fast, resilient applications
-              and sharing coding insights on Instagram and LinkedIn.
+              Hello! I'm Dilkash Alam, a passionate Full Stack MERN Developer
+              from India. I enjoy building modern web applications using
+              React.js, Node.js, Express.js, MongoDB, JavaScript, and Tailwind
+              CSS. I have completed Full Stack Development training and
+              continuously improve my skills by developing real-world projects.
+              My focus is on writing clean, maintainable code while creating
+              responsive and user-friendly applications.
             </p>
+
             <p className="mt-4 text-gray-400 text-base sm:text-lg">
-              I love turning ideas into scalable, user‑friendly products that
-              make an impact.
+              I am currently looking for my first opportunity as a Full Stack
+              MERN Developer. As a fresher, I am eager to contribute to
+              real-world projects, learn from experienced developers, and
+              continuously improve my technical skills.
             </p>
+            {/* Education & Technologies */}
+            <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+              <h3 className="text-2xl font-bold text-white mb-5">
+                Education & Technologies
+              </h3>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {[
+                  "🎓 Full Stack Development",
+                  "MERN Stack",
+                  "HTML5",
+                  "CSS3",
+                  "JavaScript",
+                  "React.js",
+                  "Node.js",
+                  "Express.js",
+                  "MongoDB",
+                  "Git",
+                  "GitHub",
+                  "Tailwind CSS",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-lg bg-white/10 border border-white/10 px-4 py-3 text-center text-white hover:bg-cyan-500/20 transition-all duration-300"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
-      </div>
+      </div>{" "}
+      {/* Content container */}
     </section>
   );
 }
