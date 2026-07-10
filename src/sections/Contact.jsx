@@ -64,7 +64,7 @@ export default function Contact() {
     setStatus("sending");
 
     try {
-      await emailjs.send(
+      const response = await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
         {
@@ -75,10 +75,21 @@ export default function Contact() {
         PUBLIC_KEY,
       );
 
+      console.log("SUCCESS:", response);
+
       setStatus("success");
-      setFormData({ name: "", email: "", service: "", budget: "", idea: "" });
+      setFormData({
+        name: "",
+        email: "",
+        service: "",
+        budget: "",
+        idea: "",
+      });
     } catch (err) {
       console.error("EmailJS Error:", err);
+
+      alert(err?.text || err?.message || JSON.stringify(err));
+
       setStatus("error");
     }
   };
@@ -252,8 +263,8 @@ export default function Contact() {
                 {status === "sending"
                   ? "Sending..."
                   : status === "success"
-                    ? "Message sent successfully ✅"
-                    : "Something went wrong ❌"}
+                    ? "✅ Thank you! Your message has been sent successfully. I'll get back to you soon."
+                    : "❌ Failed to send message. Please try again."}
               </p>
             )}
 

@@ -32,9 +32,9 @@ export default function About() {
             transition={{ type: "spring", stiffness: 200, damping: 18 }}
           >
             {/* Image is now perfectly styled to fit the container */}
-            <img 
-              src={p} 
-              alt="Dilkash Alam" 
+            <img
+              src={p}
+              alt="Dilkash Alam"
               className="w-full h-full object-cover object-center"
             />
           </motion.div>

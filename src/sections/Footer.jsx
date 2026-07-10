@@ -32,7 +32,7 @@ const socials = [
     label: "Instagram",
     href: "https://www.instagram.com/dilkash_alam_coder/",
   },
-  { Icon: FaGithub, label: "GitHub", href: "https://github.com/dilkashalam" },
+  { Icon: FaGithub, label: "GitHub", href: "https://github.com/dilkashalam8101" },
 ];
 
 /**
