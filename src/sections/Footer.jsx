@@ -21,7 +21,7 @@ const socials = [
     label: "YouTube",
     href: "https://www.youtube.com/@dilkash_alam_coder",
   },
-  { Icon: FaXTwitter, label: "X", href: "https://x.com/@codebydilkash" },
+  { Icon: FaXTwitter, label: "X", href: "https://x.com/codebydilkash" },
   {
     Icon: FaLinkedinIn,
     label: "LinkedIn",

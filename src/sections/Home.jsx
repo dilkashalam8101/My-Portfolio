@@ -15,7 +15,7 @@ const socials = [
   {
     Icon: FaLinkedinIn,
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/dilkash-ALAM-9a657940a/",
+    href: "https://www.linkedin.com/in/dilkash-alam-9a657940a/",
   },
   {
     Icon: FaInstagram,
